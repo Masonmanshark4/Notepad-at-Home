@@ -1,10 +1,10 @@
-import { getNotes } from './api'; // Import the getNotes function
 let noteForm;
 let noteTitle;
 let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let clearBtn; 
 
 if (window.location.pathname === '/notes') {
   noteForm = document.querySelector('.note-form');
@@ -110,7 +110,7 @@ const handleNoteView = (e) => {
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
-const handleNewNoteView = (e) => {
+const handleNewNoteView = () => {
   activeNote = {};
   show(clearBtn);
   renderActiveNote();
@@ -181,5 +181,9 @@ const renderNoteList = async (notes) => {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
 }
+
+getAndRenderNotes = () => {
+  getNotes().then(renderNoteList);
+}; // Add missing function declaration
 
 getAndRenderNotes();
