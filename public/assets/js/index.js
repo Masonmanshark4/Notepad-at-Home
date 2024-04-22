@@ -169,13 +169,13 @@ const renderNoteList = async (notes) => {
     noteListItems.push(createLi('No saved Notes', false));
   }
 
-  console.log(jsonNotes);
-  jsonNotes.forEach((note) => {
-    const li = createLi(note.noteTitle, true);
-    li.dataset.note = JSON.stringify(note);
+  //console.log(jsonNotes);
+  //jsonNotes.forEach((note) => {
+    //const li = createLi(note.title);
+    //li.dataset.note = JSON.stringify(note);
 
-    noteListItems.push(li);
-  });
+    //noteListItems.push(li);
+  //});
 
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
