@@ -1,8 +1,8 @@
 // All the required dependencies needed here
 const PORT = process.env.PORT || 3001;
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
+import fs from 'fs';
+import path from 'path';
+import express from 'express';
 const app = express();
 const notes = require('./db/db.json');
 
@@ -12,19 +12,19 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // GET Routes for index.html
-app.get('/api/notes', (req, res) => {
+app.get('/api/notes', (_req, res) => {
     res.json(notes);
 });
 
-app.get('/' , (req, res) => {
+app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.get('/notes', (req, res) => {
+app.get('/notes', (_req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
