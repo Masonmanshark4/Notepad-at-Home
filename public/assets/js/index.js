@@ -4,7 +4,6 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-let clearBtn; 
 
 if (window.location.pathname === '/notes') {
   noteForm = document.querySelector('.note-form');
@@ -110,7 +109,7 @@ const handleNoteView = (e) => {
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
-const handleNewNoteView = () => {
+const handleNewNoteView = (e) => {
   activeNote = {};
   show(clearBtn);
   renderActiveNote();
@@ -169,6 +168,7 @@ const renderNoteList = async (notes) => {
   if (jsonNotes.length === 0) {
     noteListItems.push(createLi('No saved Notes', false));
   }
+
   jsonNotes.forEach((note) => {
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
@@ -177,13 +177,18 @@ const renderNoteList = async (notes) => {
   });
 
   if (window.location.pathname === '/notes') {
-    noteList[0].innerHTML = ''; // Clear the note list before appending the new note list items
     noteListItems.forEach((note) => noteList[0].append(note));
   }
-}
+};
 
-getAndRenderNotes = () => {
-  getNotes().then(renderNoteList);
-}; // Add missing function declaration
+// Gets notes from the db and renders them to the sidebar
+const getAndRenderNotes = () => getNotes().then(renderNoteList);
+
+if (window.location.pathname === '/notes') {
+  saveNoteBtn.addEventListener('click', handleNoteSave);
+  newNoteBtn.addEventListener('click', handleNewNoteView);
+  clearBtn.addEventListener('click', renderActiveNote);
+  noteForm.addEventListener('input', handleRenderBtns);
+}
 
 getAndRenderNotes();
